@@ -147,3 +147,46 @@ PERMANENT_SESSION_LIFETIME = timedelta(hours=6)
 def FLASK_APP_MUTATOR(app: Flask) -> None:
     app.before_request_funcs.setdefault(None, []).append(make_session_permanent)
    # change made on Feb 20, 2023 ######## 
+
+# Custom Security OAUTH PRovider Feb 20, 2023 #######
+
+from flask_appbuilder.security.manager import AUTH_OAUTH
+
+# Set the authentication type to OAuth
+AUTH_TYPE = AUTH_OAUTH
+
+OAUTH_PROVIDERS = [
+    {   'name':'egaSSO',
+        'token_key':'access_token', # Name of the token in the response of access_token_url
+        'icon':'fa-address-card',   # Icon for the provider
+        'remote_app': {
+            'client_id':'myClientId',  # Client Id (Identify Superset application)
+            'client_secret':'MySecret', # Secret for this Client Id (Identify Superset application)
+            'client_kwargs':{
+                'scope': 'read'               # Scope for the Authorization
+            },
+            'access_token_method':'POST',    # HTTP Method to call access_token_url
+            'access_token_params':{        # Additional parameters for calls to access_token_url
+                'client_id':'myClientId'
+            },
+            'access_token_headers':{    # Additional headers for calls to access_token_url
+                'Authorization': 'Basic Base64EncodedClientIdAndSecret'
+            },
+            'api_base_url':'https://myAuthorizationServer/oauth2AuthorizationServer/',
+            'access_token_url':'https://myAuthorizationServer/oauth2AuthorizationServer/token',
+            'authorize_url':'https://myAuthorizationServer/oauth2AuthorizationServer/authorize'
+        }
+    }
+]
+
+# Will allow user self registration, allowing to create Flask users from Authorized User
+AUTH_USER_REGISTRATION = True
+
+# The default user self registration role
+AUTH_USER_REGISTRATION_ROLE = "Public"
+
+# Custom SSO Security manager
+from custom_sso_security_manager import CustomSsoSecurityManager
+CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
+
+# Custom OAUTH Complete ########
