@@ -1,4 +1,4 @@
-# Licensed to the Apache Software Foundation (ASF) under one
+z# Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
 # regarding copyright ownership.  The ASF licenses this file
@@ -280,7 +280,7 @@ SCHEDULED_QUERIES: Dict[str, Any] = {}
 # GLOBALS FOR APP Builder
 # ------------------------------
 # Uncomment to setup Your App name
-APP_NAME = "Superset"
+APP_NAME = "Superviz"
 
 # Specify the App icon
 APP_ICON = "/static/assets/images/superset-logo-horiz.png"
@@ -293,7 +293,7 @@ LOGO_TARGET_PATH = None
 LOGO_TOOLTIP = ""
 
 # Specify any text that should appear to the right of the logo
-LOGO_RIGHT_TEXT: Union[Callable[[], str], str] = ""
+LOGO_RIGHT_TEXT: Union[Callable[[], str], str] = "Data Insights"
 
 # Enables SWAGGER UI for superset openapi spec
 # ex: http://localhost:8080/swagger/v1
@@ -442,7 +442,7 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "EMBEDDED_SUPERSET": False,
     # Enables Alerts and reports new implementation
     "ALERT_REPORTS": False,
-    "DASHBOARD_RBAC": False,
+    "DASHBOARD_RBAC": True,
     "ENABLE_EXPLORE_DRAG_AND_DROP": True,
     "ENABLE_FILTER_BOX_MIGRATION": False,
     "ENABLE_ADVANCED_DATA_TYPES": False,
