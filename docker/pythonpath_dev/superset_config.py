@@ -129,3 +129,21 @@ try:
     )
 except ImportError:
     logger.info("Using default Docker config...")
+
+    # change made on Feb 20, 2023
+# Set up session time     
+from flask import session
+from flask import Flask
+
+
+def make_session_permanent():
+    '''
+    Enable maxAge for the cookie 'session'
+    '''
+    session.permanent = True
+
+# Set up max age of session to 6 hours
+PERMANENT_SESSION_LIFETIME = timedelta(hours=6)
+def FLASK_APP_MUTATOR(app: Flask) -> None:
+    app.before_request_funcs.setdefault(None, []).append(make_session_permanent)
+   # change made on Feb 20, 2023 ######## 
